@@ -63,6 +63,5 @@ USER ${user}
 # expose a specific port on the docker container
 ENV PORT=3000
 EXPOSE ${PORT}
-
 # start the server using the previously build application
 CMD [ "node", "./dist/main.js" ]

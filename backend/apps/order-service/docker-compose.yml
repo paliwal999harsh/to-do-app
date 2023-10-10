@@ -12,6 +12,11 @@ services:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       JWT_EXPIRATION: ${JWT_EXPIRATION}
       DB_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      REDIS_BROKER_HOST: redis_broker
+      REDIS_BROKER_PORT: 6379
+      REDIS_BROKER_RETRY_ATTEMPTS: 3
+      REDIS_BROKER_RETRY_DELAY: 3
+      REDIS_BROKER_ENABLE_TLS: false
     depends_on:
       - redis_broker
   migrate:
@@ -45,7 +50,7 @@ services:
       interval: 10s
       retries: 10
   redis_broker:
-    container_name: ${REDIS_BROKER_HOST}
+    container_name: localhost
     image: redis:6
     ports:
       - ${REDIS_BROKER_PORT}:6379
