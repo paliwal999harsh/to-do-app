@@ -27,6 +27,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  redis_broker:
+    container_name: ${REDIS_BROKER_HOST}
+    image: redis:6
+    ports:
+      - ${REDIS_BROKER_PORT}:6379
+    volumes:
+      - redis_broker:/redis-broker-data
   db:
     image: postgres:12
     ports:
@@ -44,14 +51,7 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
-  redis_broker:
-    container_name: ${REDIS_BROKER_HOST}
-    image: redis:6
-    ports:
-      - ${REDIS_BROKER_PORT}:6379
-    volumes:
-      - redis_broker:/redis-broker-data
 volumes:
-  postgres: ~
   redis_broker:
     driver: local
+  postgres: ~

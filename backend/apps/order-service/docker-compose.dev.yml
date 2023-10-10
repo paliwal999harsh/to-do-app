@@ -1,5 +1,12 @@
 version: "3"
 services:
+  redis_broker:
+    container_name: ${REDIS_BROKER_HOST}
+    image: redis:6
+    ports:
+      - ${REDIS_BROKER_PORT}:6379
+    volumes:
+      - redis_broker:/redis-broker-data
   db:
     image: postgres:12
     ports:
@@ -9,14 +16,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres:/var/lib/postgresql/data
-  redis_broker:
-    container_name: ${REDIS_BROKER_HOST}
-    image: redis:6
-    ports:
-      - ${REDIS_BROKER_PORT}:6379
-    volumes:
-      - redis_broker:/redis-broker-data
 volumes:
-  postgres: ~
   redis_broker:
     driver: local
+  postgres: ~
