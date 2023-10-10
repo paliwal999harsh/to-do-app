@@ -1,6 +1,7 @@
 import { Module, Scope } from "@nestjs/common";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { MorganInterceptor, MorganModule } from "nest-morgan";
+import { RedisModule } from "./redis/redis.module";
 import { UserModule } from "./user/user.module";
 import { OrderModule } from "./order/order.module";
 import { CustomerModule } from "./customer/customer.module";
@@ -9,7 +10,6 @@ import { ProductModule } from "./product/product.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
-import { KafkaModule } from "./kafka/kafka.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ServeStaticOptionsService } from "./serveStaticOptions.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
@@ -23,7 +23,6 @@ import { AuthModule } from "./auth/auth.module";
   imports: [
     ACLModule,
     AuthModule,
-    KafkaModule,
     UserModule,
     OrderModule,
     CustomerModule,
@@ -51,6 +50,7 @@ import { AuthModule } from "./auth/auth.module";
       inject: [ConfigService],
       imports: [ConfigModule],
     }),
+    RedisModule,
   ],
   providers: [
     {
